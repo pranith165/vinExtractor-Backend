@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-n@g0=gk&+imd2&s*gpi#bx*+v!pun)kt%x5p2^mbgeju(e7@23
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://vinextractor-backend.herokuapp.com/', '127.0.0.1']
+ALLOWED_HOSTS = ['vinextractor-backend.herokuapp.com/', 'http://127.0.0.1']
 
 
 # Application definition
@@ -136,9 +136,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
+
+# The absolute path to the directory where collectstatic will collect static files for deployment.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

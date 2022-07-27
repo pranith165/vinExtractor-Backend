@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-n@g0=gk&+imd2&s*gpi#bx*+v!pun)kt%x5p2^mbgeju(e7@23
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['vinextractor-backend.herokuapp.com', 'http://127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

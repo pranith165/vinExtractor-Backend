@@ -202,7 +202,8 @@ def GetMaps(request):
         scrapWebData = pd.DataFrame(scrapObj)
         for column in columnsToInclude:
             scrapWebData[column] = excelDataCheck[column]
-  
+
+    return HttpResponse('www.youtube.com')
     # creating an excel to save the data
     excelDirectory = 'static/excelOutput'
     # excelFileName = "VinExtractor" + datetime.now().strftime("%m-%d-%y--%I-%M-%p")

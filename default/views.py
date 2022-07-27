@@ -203,11 +203,11 @@ def GetMaps(request):
         for column in columnsToInclude:
             scrapWebData[column] = excelDataCheck[column]
 
-    return HttpResponse('www.youtube.com')
+    # return HttpResponse('www.youtube.com')
     # creating an excel to save the data
     excelDirectory = 'static/excelOutput'
-    # excelFileName = "VinExtractor" + datetime.now().strftime("%m-%d-%y--%I-%M-%p")
-    excelFileName = "VinExtractor"
+    excelFileName = "VinExtractor" + datetime.now().strftime("%m-%d-%y--%I-%M-%p")
+    #excelFileName = "VinExtractor"
     downloadLink = excelDirectory+'/'+excelFileName
     workbook = xlsxwriter.Workbook(excelDirectory+'/'+excelFileName+'.xlsx')
     # workbook = xlsxwriter.Workbook('static/excelOutput/vinData.xlsx')

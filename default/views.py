@@ -15,6 +15,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup as bs
 from django.http import JsonResponse
 import configparser
+import os
 
 # info = get('https://maps.googleapis.com/maps/api/directions/json?origin=usf&destination=utd&key=AIzaSyCHK8W-Ag0zE7tk_YL1rIBHaZeM2a1kRGw')
 # print(info.text) 
@@ -204,10 +205,13 @@ def GetMaps(request):
             scrapWebData[column] = excelDataCheck[column]
 
     # return HttpResponse('www.youtube.com')
+    
     # creating an excel to save the data
-    excelDirectory = 'static/excelOutput'
-    excelFileName = "VinExtractor" + datetime.now().strftime("%m-%d-%y--%I-%M-%p")
-    #excelFileName = "VinExtractor"
+    os.remove('staticfiles/excelOutput/VinExtractor')
+    # excelDirectory = 'static/excelOutput'
+    excelDirectory = 'staticfiles/excelOutput'
+    # excelFileName = "VinExtractor" + datetime.now().strftime("%m-%d-%y--%I-%M-%p")
+    excelFileName = "VinExtractor"
     downloadLink = excelDirectory+'/'+excelFileName
     workbook = xlsxwriter.Workbook(excelDirectory+'/'+excelFileName+'.xlsx')
     # workbook = xlsxwriter.Workbook('static/excelOutput/vinData.xlsx')

@@ -207,11 +207,11 @@ def GetMaps(request):
     # return HttpResponse('www.youtube.com')
     
     # creating an excel to save the data
-    os.remove('staticfiles/excelOutput/VinExtractor')
-    # excelDirectory = 'static/excelOutput'
-    excelDirectory = 'staticfiles/excelOutput'
-    # excelFileName = "VinExtractor" + datetime.now().strftime("%m-%d-%y--%I-%M-%p")
-    excelFileName = "VinExtractor"
+    # os.remove('staticfiles/excelOutput/VinExtractor')
+    excelDirectory = 'static/excelOutput'
+    # excelDirectory = 'staticfiles/excelOutput'
+    excelFileName = "VinExtractor" + datetime.now().strftime("%m-%d-%y--%I-%M-%p")
+    # excelFileName = "VinExtractor"
     downloadLink = excelDirectory+'/'+excelFileName
     workbook = xlsxwriter.Workbook(excelDirectory+'/'+excelFileName+'.xlsx')
     # workbook = xlsxwriter.Workbook('static/excelOutput/vinData.xlsx')

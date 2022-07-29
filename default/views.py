@@ -117,6 +117,7 @@ def GetMaps(request):
         #adding data to apiData dataframe
         apiData = data
 
+    scrapResponseDict = []
     if isVindicator=='true':
         # webscrapping logic starts here
         scrapObj = []
@@ -265,6 +266,8 @@ def GetMaps(request):
                 except:
                     pass
     print(isNHTSA, isVindicator)
+
+    compareResult = pd.DataFrame() 
     if(isNHTSA =='true' and isVindicator == 'true'):
         config = configparser.ConfigParser(allow_no_value=True)
         config.read('./helperProperties.ini')
@@ -296,6 +299,7 @@ def GetMaps(request):
                 except:
                     result=pd.concat([result,pd.DataFrame({"BodyClass":x,"HLDI Class Name":y,"Final":"Rule not Found"},index=[0])],ignore_index=True)
         # result.to_excel("temp.xlsx")
+            compareResult = result
         except:
             workbook.close()
             vinColumnMatchError = { 
@@ -328,5 +332,24 @@ def GetMaps(request):
     # print(request.GET.get('origin'))
     # data = info.text
     # print(data)
+    Comparedict = compareResult.to_json(orient = "records")
+    NHTSAdict = data.to_json(orient = "records")
+    scrapResponseDict = scrapWebData.to_json(orient="records")
+    print()
+ 
+    # response = {
+    #     'response_NHTSA' : NHTSAdict,
+    #     'response_vindicator': scrapResponseDict,
+    #     'response_Compare': Comparedict
+    # }
+
+    response = {
+        'response_NHTSA' : NHTSAdict,
+        'response_vindicator': scrapResponseDict,
+        'response_Compare': Comparedict
+    }
+    # response = json.dumps(response, indent=4)
+    return JsonResponse(data = response, status=200)
+    
     return HttpResponse(downloadLink)
     

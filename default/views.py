@@ -205,67 +205,52 @@ def GetMaps(request):
         for column in columnsToInclude:
             scrapWebData[column] = excelDataCheck[column]
 
-    # return HttpResponse('www.youtube.com')
     
-    # creating an excel to save the data
-    # os.remove('staticfiles/excelOutput/VinExtractor')
-    excelDirectory = 'static/excelOutput'
-    # excelDirectory = 'staticfiles/excelOutput'
-    excelFileName = "VinExtractor" + datetime.now().strftime("%m-%d-%y--%I-%M-%p")
-    # excelFileName = "VinExtractor"
-    downloadLink = excelDirectory+'/'+excelFileName
-    workbook = xlsxwriter.Workbook(excelDirectory+'/'+excelFileName+'.xlsx')
-    # workbook = xlsxwriter.Workbook('static/excelOutput/vinData.xlsx')
-    if isNHTSA=='true':
-        NHTSAsheet = workbook.add_worksheet('NHTSA Data')
-        # adding header to NHTSA excel sheet
-        for i in range(len(apiData.columns)):
-            NHTSAsheet.write(0, i, apiData.columns[i])
-        # filling rows to the NHTSA sheets
-        for i in range(apiData.shape[0]):
-            for j in range(len(apiData.columns)):
-                try:
-                    NHTSAsheet.write(i+1, j, apiData.iloc[i][j])
-                except:
-                    pass
+    # # creating an excel to save the data
+    # excelDirectory = 'static/excelOutput'
+    # # excelDirectory = 'staticfiles/excelOutput'
+    # excelFileName = "VinExtractor" + datetime.now().strftime("%m-%d-%y--%I-%M-%p")
+    # # excelFileName = "VinExtractor"
+    # downloadLink = excelDirectory+'/'+excelFileName
+    # workbook = xlsxwriter.Workbook(excelDirectory+'/'+excelFileName+'.xlsx')
+    # # workbook = xlsxwriter.Workbook('static/excelOutput/vinData.xlsx')
+    # if isNHTSA=='true':
+    #     NHTSAsheet = workbook.add_worksheet('NHTSA Data')
+    #     # adding header to NHTSA excel sheet
+    #     for i in range(len(apiData.columns)):
+    #         NHTSAsheet.write(0, i, apiData.columns[i])
+    #     # filling rows to the NHTSA sheets
+    #     for i in range(apiData.shape[0]):
+    #         for j in range(len(apiData.columns)):
+    #             try:
+    #                 NHTSAsheet.write(i+1, j, apiData.iloc[i][j])
+    #             except:
+    #                 pass
 
 
-    if isVindicator=='true':
+    # if isVindicator=='true':
 
         # validatind "HLDI Class Name" column
-        HLDICheck = scrapWebData.columns
-        if("HLDI Class Name" not  in HLDICheck):
-            HLDIError = { 
-                "message": "Please select correct VIN column for vindicator data",
-                "value": "Please select correct VIN column"
-            }
-            # responseToSend = responseText.to_json(orient='records')
-            return JsonResponse(data = HLDIError, status=203)
+    #     HLDICheck = scrapWebData.columns
+    #     if("HLDI Class Name" not  in HLDICheck):
+    #         HLDIError = { 
+    #             "message": "Please select correct VIN column for vindicator data",
+    #             "value": "Please select correct VIN column"
+    #         }
+    #         # responseToSend = responseText.to_json(orient='records')
+    #         return JsonResponse(data = HLDIError, status=203)
 
-        Vindicator = workbook.add_worksheet('Vindicator Data')
-        # adding header to Vindicator excel sheet
-        for i in range(len(scrapWebData.columns)):
-            Vindicator.write(0, i, scrapWebData.columns[i])
-        # filling rows to the Vindicator sheets
-        for i in range(scrapWebData.shape[0]):
-            for j in range(len(scrapWebData.columns)):
-                # if(scrapWebData.iloc[i]['ERROR']=='VIN Error'):
-                #     Vindicator.write(i+1, j, i+1)
-                #     # find the index no
-                #     index_no = scrapWebData.columns.get_loc('ERROR')
-                #     Vindicator.write(i+1, index_no, 'VIN Error')
-                #     break
-                # else:
-                #     try:
-                #         Vindicator.write(i+1, j, scrapWebData.iloc[i][j])
-                #     except:
-                #         pass
-
-                try:
-                    Vindicator.write(i+1, j, scrapWebData.iloc[i][j])
-                except:
-                    pass
-    print(isNHTSA, isVindicator)
+    #     Vindicator = workbook.add_worksheet('Vindicator Data')
+    #     # adding header to Vindicator excel sheet
+    #     for i in range(len(scrapWebData.columns)):
+    #         Vindicator.write(0, i, scrapWebData.columns[i])
+    #     # filling rows to the Vindicator sheets
+    #     for i in range(scrapWebData.shape[0]):
+    #         for j in range(len(scrapWebData.columns)):
+    #             try:
+    #                 Vindicator.write(i+1, j, scrapWebData.iloc[i][j])
+    #             except:
+    #                 pass
 
     compareResult = pd.DataFrame() 
     if(isNHTSA =='true' and isVindicator == 'true'):
@@ -301,7 +286,7 @@ def GetMaps(request):
         # result.to_excel("temp.xlsx")
             compareResult = result
         except:
-            workbook.close()
+            # workbook.close()
             vinColumnMatchError = { 
                 "message": "Please select correct VIN column",
                 "value": "please"
@@ -309,19 +294,22 @@ def GetMaps(request):
             # responseToSend = responseText.to_json(orient='records')
             return JsonResponse(data = vinColumnMatchError, status=203)
             
-        compareSheet = workbook.add_worksheet('Compare')
-        # adding header to Vindicator excel sheet
-        for i in range(len(result.columns)):
-            compareSheet.write(0, i, result.columns[i])
-        # filling rows to the Vindicator sheets
-        for i in range(result.shape[0]):
-            for j in range(len(result.columns)):
-                try:
-                    compareSheet.write(i+1, j, result.iloc[i][j])
-                except:
-                    pass
+        # compareSheet = workbook.add_worksheet('Compare')
+        # # adding header to Vindicator excel sheet
+        # for i in range(len(result.columns)):
+        #     compareSheet.write(0, i, result.columns[i])
+        # # filling rows to the Vindicator sheets
+        # for i in range(result.shape[0]):
+        #     for j in range(len(result.columns)):
+        #         try:
+        #             compareSheet.write(i+1, j, result.iloc[i][j])
+        #         except:
+        #             pass
 
-    workbook.close()
+    # workbook.close()
+
+
+
     # origin = request.GET.get('origin')
     # desti = request.GET.get('destination')
     # date = request.GET.get('departureTime')
@@ -335,13 +323,6 @@ def GetMaps(request):
     Comparedict = compareResult.to_json(orient = "records")
     NHTSAdict = data.to_json(orient = "records")
     scrapResponseDict = scrapWebData.to_json(orient="records")
-    print()
- 
-    # response = {
-    #     'response_NHTSA' : NHTSAdict,
-    #     'response_vindicator': scrapResponseDict,
-    #     'response_Compare': Comparedict
-    # }
 
     response = {
         'response_NHTSA' : NHTSAdict,
